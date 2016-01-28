@@ -201,9 +201,9 @@ begin
   1 : begin AutoR:=createTasks(3);end;
   2 : begin AutoR:=createTasks(4);end;
   end;
-  {if Trim(AutoR)<>'' then
+  if Trim(AutoR)<>'' then
     AutoR:='autorun=[1]_0_"'+edtMailTo.Text+'"';
-    FileEncryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini',AutoR);}
+    FileEncryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini',AutoR);
 
 end;
 
