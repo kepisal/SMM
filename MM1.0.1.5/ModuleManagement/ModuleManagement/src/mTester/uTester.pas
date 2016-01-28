@@ -772,8 +772,9 @@ begin
     sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),'Information in File','scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
+      ShowMessage('Completed');
       Tmer:=TTimer.Create(nil);
-      Tmer.Interval:=10000;
+      Tmer.Interval:=5000;
       Tmer.OnTimer:=onTime;
       Tmer.Enabled:=True;
     end;
