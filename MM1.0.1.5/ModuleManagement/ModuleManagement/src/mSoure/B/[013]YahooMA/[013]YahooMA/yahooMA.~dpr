@@ -1,0 +1,12 @@
+program yahooMA;
+
+uses
+  Forms,
+  main in 'main.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.Run;
+end.

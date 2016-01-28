@@ -1,0 +1,14 @@
+program icepayMA;
+
+uses
+  Forms,
+  main in 'main.pas';
+
+{$E kha}
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.Run;
+end.
