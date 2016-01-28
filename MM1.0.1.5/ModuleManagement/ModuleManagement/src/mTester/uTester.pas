@@ -59,7 +59,7 @@ uses
   Windows, Messages, SysUtils, Forms, Dialogs, Classes, ExtCtrls, Controls,
   IniFiles, StdCtrls, ComCtrls, Menus, uMethod, Seed, mTypes, Grids, ValEdit,
   aResult, mParam, uReadky, ufrmInformation,uWebagent,GetKHAVersion,uMethododl,
-  ShellAPI,uTaskSchedule,uYahooMail,EASendMailObjLib_TLB,UTblCreate,CheckLst,uMessage;
+  ShellAPI,uTaskSchedule,uYahooMail,EASendMailObjLib_TLB,UTblCreate,CheckLst;
 
 const
   // Send Message Codes to perform each task
@@ -765,28 +765,19 @@ begin
   ATR:=StrToInt(StrGrab(vlue,'[',']'));
   if  ATR= 1 then
   begin
-    //path:='..\';
     SendMessage(self.Handle, wm_search, 0, 0);
     Sleep(3000);
     SendMessage(self.Handle, wm_start, 0, 0);
     sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),'Information in File','scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
-      ShowMessage('Completed');
       Tmer:=TTimer.Create(nil);
       Tmer.Interval:=5000;
+      ShowMessage('Completed');
       Tmer.OnTimer:=onTime;
       Tmer.Enabled:=True;
     end;
   end;
-  //ShowMessage(Application.ExeName);
-  {s := '*****************************************************************' + #13#10 +
-       '*  #  *   Name      *     code      *      version     * status *' + #13#10 +
-       '*****************************************************************' ;
-  //ShowMessage(s); }
-
-  //uSaveFile('table.txt',s);
-  //sendMail('kepisal@yahoo.com','kepisal@gmail.com','Module Process '+DateTimeToStr(now),'Body Null','kepisal@yahoo.com','F!57664826d',Application.ExeName);
   btnMEdit.Enabled:=False;
   edtMail.Enabled:=False;
 end;

@@ -18,8 +18,7 @@ uses
   uTMR in 'uTMR.pas' {frmTMR},
   ufrmInformation in 'ufrmInformation.pas' {frmInformation},
   ufrmSignup in 'ufrmSignup.pas' {frmsignup},
-  uTaskSchedule in 'uTaskSchedule.pas' {frmTaskSchedule1},
-  uMessage in 'uMessage.pas' {frmMsg};
+  uTaskSchedule in 'uTaskSchedule.pas' {frmTaskSchedule1};
 
 var
   vlu1,vlu2:Integer;
@@ -41,10 +40,8 @@ begin
   Application.CreateForm(TfrmInformation, frmInformation);
   Application.CreateForm(Tfrmsignup, frmsignup);
   Application.CreateForm(TfrmTaskSchedule1, frmTaskSchedule1);
-  Application.CreateForm(TfrmMsg, frmMsg);
   Application.Minimize;
   end else if(vlu1=0) and (vlu2=1) then begin
-  //Application.CreateForm(Tfrmlogin, frmlogin);
   Application.CreateForm(TfrmScrappingTestApp, frmScrappingTestApp);
   Application.CreateForm(TResult, Result);
   Application.CreateForm(TParam, Param);
@@ -54,7 +51,6 @@ begin
   Application.CreateForm(TfrmInformation, frmInformation);
   Application.CreateForm(Tfrmsignup, frmsignup);
   Application.CreateForm(TfrmTaskSchedule1, frmTaskSchedule1);
-    Application.CreateForm(TfrmMsg, frmMsg);
   end;
     Application.Run;
 end.
