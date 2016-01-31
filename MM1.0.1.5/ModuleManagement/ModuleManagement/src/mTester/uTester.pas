@@ -766,14 +766,12 @@ begin
   if  ATR= 1 then
   begin
     SendMessage(self.Handle, wm_search, 0, 0);
-    Sleep(3000);
     SendMessage(self.Handle, wm_start, 0, 0);
     sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),'Information in File','scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
       Tmer:=TTimer.Create(nil);
       Tmer.Interval:=5000;
-      ShowMessage('Completed');
       Tmer.OnTimer:=onTime;
       Tmer.Enabled:=True;
     end;

@@ -41,6 +41,7 @@ begin
   Application.CreateForm(Tfrmsignup, frmsignup);
   Application.CreateForm(TfrmTaskSchedule1, frmTaskSchedule1);
   Application.Minimize;
+  Sleep(10000);
   end else if(vlu1=0) and (vlu2=1) then begin
   Application.CreateForm(TfrmScrappingTestApp, frmScrappingTestApp);
   Application.CreateForm(TResult, Result);

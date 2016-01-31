@@ -28,10 +28,12 @@ begin
   // Set File to Attachment
   // Add attachment from local disk
   
+  if Length(filename)<>0 then
+  begin
   If oSmtp.AddAttachment(filename) <> 0 Then
-    ShowMessage( 'Failed to add attachment with error: ' + 
+    ShowMessage( 'Failed to add attachment with error: ' +
     oSmtp.GetLastErrDescription());
-
+  end;
   // Yahoo SMTP server address
   oSmtp.ServerAddr := 'smtp.mail.yahoo.com';
 

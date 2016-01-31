@@ -89,7 +89,7 @@ function getOption(index:Integer):string;
 var
   temp:String;
 begin
-  temp:=' ';
+  temp:='';
   case index of
   0:temp:='ONCE';
   1:temp:='DAILY';
@@ -159,13 +159,11 @@ var
   Reg: TRegIniFile;
 begin
   localTime:=Now;
-  //temp:=DateToStr(localTime) ;
   fln:=Application.ExeName;
   stime:=ConvertTime12To24(TimeToStr(dtpTime.time));
   sdate:=DateToStr(dtpDateTime.Date);
-  //temp:= 'Pisal /p 0231';
-  //temp := GetEnvironmentVariable('COMPUTERNAME')+'\'+ GetEnvironmentVariable('USERNAME');
-
+if getOption(index)<>'' then
+begin
 case index of
   0: begin // one time
       Query:='/Create /SC '+getOption(index)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f';
@@ -189,15 +187,18 @@ case index of
          ShellExecute(0,'runas','SchTasks',pansichar(Query),nil,SW_HIDE);
          Result:='Success';
         end;
+end else ShowMessage('Please Check Task before apply...');
+
 //end;
 end;
 procedure TfrmTaskSchedule1.btnOkClick(Sender: TObject);
 var
     buttonSelected : Integer;
-
 begin
   case cbbBeginTask.ItemIndex of
-  0 : begin AutoR:= createTasks(rgOption.ItemIndex); end;
+  0 : begin
+      AutoR:= createTasks(rgOption.ItemIndex);
+  end;
   1 : begin AutoR:=createTasks(3);end;
   2 : begin AutoR:=createTasks(4);end;
   end;
@@ -219,7 +220,6 @@ begin
   if i= 0 then
   begin
     rgOption.Enabled:=True;
-    rgOption.ItemIndex:=0;
     dtpDateTime.Enabled:=True;
     dtpTime.Enabled:=True;
     btnOk.Enabled:=True;
