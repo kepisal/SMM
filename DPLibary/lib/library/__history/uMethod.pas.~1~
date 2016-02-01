@@ -663,7 +663,7 @@ begin
       // 기존에 누락되어있던 문자에 대한 처리
       '&', '=', '', '_', '(', ')', '-', '''': if not Ignore then Result := Result + '%' + AscToHex(aStr[i]);
       // non ascii char
-//      #255..#128: Result := Result + '%' + AscToHex(aStr[i]);
+      #128..#255: Result := Result + '%' + AscToHex(aStr[i]);
       else
         Result := Result + aStr[i];
     end;

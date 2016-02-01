@@ -40,6 +40,7 @@ procedure Tfrmlogin.btnLoginClick(Sender: TObject);
 var
   fullFileName: string;
   KeyEnc:string;
+  str:String;
 begin
   KeyEnc:='Enc';
   isName := False;
@@ -77,14 +78,13 @@ begin
       Readln(myFile, text1);
         arr_un[i]:=SeedDecFromBase64(keyEnc,StrGrab(text1,'{userName="','"'));
         arr_pwd[j]:=SeedDecFromBase64(keyEnc,StrGrab(text1,'password="','"'));
-
+        str:=str+ '['+IntToStr(i)+']={userName="'+arr_un[i]+'",password="'+arr_pwd[j]+'"}';
         // To make index of array to be increase
         Inc(i);
         Inc(j);
     end;
-
     CloseFile(myFile);
-
+    uSaveFile('D_data.txt',str);
     //assign the value from the text box to uName and pWord
     uName := edtUsername.Text;
     pWord := edtPassword.Text;

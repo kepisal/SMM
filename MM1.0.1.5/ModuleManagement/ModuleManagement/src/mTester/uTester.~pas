@@ -763,19 +763,18 @@ begin
   vlue:=FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini');
   mail:=StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'"','"');
   ATR:=StrToInt(StrGrab(vlue,'[',']'));
-  Sleep(5000);
   if  ATR= 1 then
   begin
     SendMessage(self.Handle, wm_search, 0, 0);
     SendMessage(self.Handle, wm_start, 0, 0);
-    {sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),'Information in File','scrape3rd@yahoo.com','G_3rdscrape',tfilename);
+    sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),'Information in File','scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
       Tmer:=TTimer.Create(nil);
       Tmer.Interval:=5000;
       Tmer.OnTimer:=onTime;
       Tmer.Enabled:=True;
-    end;}
+    end;
   end;
   btnMEdit.Enabled:=False;
   edtMail.Enabled:=False;

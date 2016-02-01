@@ -69,7 +69,6 @@ end;
 procedure TfrmTMR.btnBrowserClick(Sender: TObject);
 var
   openDialog : topendialog;    // Open dialog variable
-  i : Integer;
   name:String;
 begin
   // Create the open dialog object - assign to our open dialog variable

@@ -89,7 +89,7 @@ function getOption(index:Integer):string;
 var
   temp:String;
 begin
-  temp:=' ';
+  temp:='';
   case index of
   0:temp:='ONCE';
   1:temp:='DAILY';
@@ -181,13 +181,14 @@ case index of
      SetAutoStart_REG(fln,'MTester',true);
     end;
   end;
-end;
   buttonSelected := messagedlg('Task Updated : '+getValueComboBox(cbbBeginTask.ItemIndex),mtWarning, mbOKCancel, 0);
       if buttonSelected = mrOK then
         begin
          ShellExecute(0,'runas','SchTasks',pansichar(Query),nil,SW_HIDE);
          Result:='Success';
         end;
+end else ShowMessage('Please Check Task before apply...');
+
 //end;
 end;
 procedure TfrmTaskSchedule1.btnOkClick(Sender: TObject);

@@ -206,7 +206,6 @@ type
 {$R *.dfm}
 
 procedure TfrmScrappingTestApp.onTime(Sender : TObject);
-var y:Integer;
 begin
   Application.Terminate;
 end;
@@ -280,7 +279,6 @@ procedure TfrmScrappingTestApp._wmStart(var aMessage: TMessage);
 var
   mExecute, aParam: string;
   isCheck: Boolean;
-  path:string;
 begin
   //ShowMessage(ExtractFileDir(Application.ExeName));
   DTable:=TDrawTable.create;

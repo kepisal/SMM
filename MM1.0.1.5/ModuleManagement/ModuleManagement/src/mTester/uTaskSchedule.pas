@@ -154,7 +154,6 @@ function TfrmTaskSchedule1.createTasks(index:Byte):String;
 var
   temp,sdate,stime,zone,fln,daychecked,Query:String;
   i,j,buttonSelected :Integer;
-  test:Cardinal;
   key: string;
   Reg: TRegIniFile;
 begin

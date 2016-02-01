@@ -96,28 +96,14 @@ end;
 
 procedure Tfrmkey.FormCreate(Sender: TObject);
 var
-  dataFile: TextFile;
-  text,text1, temp, code, defi: string;
+
+  text,text1, code, defi: string;
   i: Integer;
   j: Integer;
-  NewColumn: TListColumn;
-  ListItem: TListItem;
 begin
   i := 1;
   j:=1;
-
-  {AssignFile(dataFile,'Text.txt');
-  Reset(dataFile);
-  while not Eof(dataFile) do
-  begin
-    ReadLn(dataFile, text);
-    temp := temp + text;
-  end;
-
-  ShowMessage(BoolToStr(EncryptString(text)));
-
-  CloseFile(dataFile);}
-
+  
   gridview1.ColCount := 3;
 
   gridview1.ColWidths[0] := 50;
@@ -129,9 +115,7 @@ begin
 
   text := DecryptString();
   text1:=DecryptString();
-
-//  Insert(',[(A1005)]={[_ABCDEFG5_]}',text,Pos('}}', text)+1);
-
+  
   while True do
   begin
     code := StrGrab(text, '[(', ')]', j);
