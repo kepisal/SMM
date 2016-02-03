@@ -59,7 +59,7 @@ uses
   Windows, Messages, SysUtils, Forms, Dialogs, Classes, ExtCtrls, Controls,
   IniFiles, StdCtrls, ComCtrls, Menus, uMethod, Seed, mTypes, Grids, ValEdit,
   aResult, mParam, uReadky, ufrmInformation,uWebagent,GetKHAVersion,uMethododl,
-  ShellAPI,uTaskSchedule,uYahooMail,EASendMailObjLib_TLB,UTblCreate,CheckLst;
+  ShellAPI,uTaskSchedule,uYahooMail,EASendMailObjLib_TLB,UTblCreate,CheckLst,U_CloseDlg ;
 
 const
   // Send Message Codes to perform each task
@@ -69,6 +69,8 @@ const
   wm_result = wm_user + $1004;
   wm_start = wm_user + $1005;
   wm_search = wm_user + $1006;
+
+  WM_NOTIFYICON  = WM_USER+333; // System TrayIcon
   schar: string = '*/*';
 
 type
@@ -142,10 +144,16 @@ type
     procedure Mail1Click(Sender: TObject);
     procedure chkMailClick(Sender: TObject);
     procedure edtModulNameDblClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    TrayIcon: TNotifyIconData;
+    HMainIcon: HICON;
+    procedure ClickTrayIcon(var msg: TMessage); message WM_NOTIFYICON;
+    Procedure MinimizeClick(Sender:TObject);
+
     procedure _wmReceiveData(var Msg: TWMCopyData); message wm_copydata;
     procedure _wmProgress(var aMessage: TMessage); message wm_progress;
     procedure _wmStatus(var aMessage: TMessage); message wm_state;
@@ -200,12 +208,48 @@ var
 implementation
 
 uses
-  uTMR;
+  uTMR, Math;
 
 type
   TBytes = array of Byte;
 
 {$R *.dfm}
+
+
+
+{**************** MinimizeClick ************}
+Procedure TfrmScrappingTestApp.MinimizeClick(Sender:TObject);
+var i:Integer;
+begin
+  i:=1;
+   if i<>0 then Shell_NotifyIcon(NIM_Add, @TrayIcon);
+   hide;
+   {hide the taskbar button}
+   if IsWindowVisible(Application.Handle)
+   then ShowWindow(Application.Handle, SW_HIDE);
+end;
+
+
+{******************** ClickTrayIcon ************}
+procedure TfrmScrappingTestApp.ClickTrayIcon(var msg: TMessage);
+var i:Integer;
+begin
+  i:=1;
+  case msg.lparam of
+    WM_LBUTTONUP, WM_LBUTTONDBLCLK :
+    {WM_BUTTONDOWN may cause next Icon to activate if this icon is deleted -
+        (Icons shift left and left neighbor will be under mouse at ButtonUp time)}
+    begin
+      Application.Restore;  {restore the application}
+      If WindowState = wsMinimized then WindowState := wsNormal;  {Reset minimized state}
+      {Added 5/6/04 ====>} visible:=true;
+      SetForegroundWindow(Application.Handle); {Force form to the foreground }
+      if i<>0 then Shell_NotifyIcon(NIM_Delete, @TrayIcon);
+    end;
+  end;
+end;
+
+
 
 procedure TfrmScrappingTestApp.onTime(Sender : TObject);
 begin
@@ -574,10 +618,12 @@ begin
 //end;
 
 procedure TfrmScrappingTestApp.FormClose(Sender: TObject; var Action: TCloseAction);
+var buttonSelected:Integer;
 begin
   FileEncryption('auto.ini','auto.ini','autorun=[0]_0_');
-  Action := caFree;
+  Action:=caFree;
   Application.Terminate();
+  action:=CAnone;
 end;
 
 procedure TfrmScrappingTestApp.AddModuleInfo1Click(Sender: TObject);
@@ -756,15 +802,39 @@ var
   mail:String;
   body:String;
   sent:Boolean;
-  Tmer:TTimer;
   i:Integer;
 begin
+  HMainIcon:=LoadIcon(MainInstance, 'MAINICON');
+  Shell_NotifyIcon(NIM_DELETE, @TrayIcon);
+  with trayIcon do
+  begin
+    cbSize              := sizeof(TNotifyIconData);
+    Wnd                 := handle;
+    uID                 := 123;
+    uFlags              := NIF_MESSAGE or NIF_ICON or NIF_TIP;
+    uCallbackMessage    := WM_NOTIFYICON;
+    hIcon               := HMainIcon;
+    szTip               := 'Click to restore Systray Demo';
+  end;
+  Application.OnMinimize:= MinimizeClick;
+
   vlue:=FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini');
   mail:=StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'"','"');
   task:=StrGrab(vlue,'{','}');
   ATR:=StrToInt(StrGrab(vlue,'[',']'));
   if  ATR= 1 then
   begin
+    Application.Minimize;
+      MainMenu1.Items.Items[0].Enabled:=false;
+      MainMenu1.Items.Items[1].Enabled:=false;
+      MainMenu1.Items.Items[2].Enabled:=false;
+      chkMail.Enabled:=False;
+      edtSearch.Enabled:=False;
+      btnSearch.Enabled:=False;
+      btnStart.Enabled:=False;
+      edtMail.Enabled:=False;
+      lvModuleList.Enabled:=False;
+
     SendMessage(self.Handle, wm_search, 0, 0);
     SendMessage(self.Handle, wm_start, 0, 0);
     body:='Semi-Module Monitoring System '+#13#10
@@ -773,11 +843,12 @@ begin
     sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),body,'scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
-      Tmer:=TTimer.Create(nil);
-      Tmer.Interval:=5000;
-      ShowMessage('Completed...');
-      Tmer.OnTimer:=onTime;
-      Tmer.Enabled:=True;
+      Application.Restore;  {restore the application}
+      WindowState := wsNormal; {reset form to normal}
+      visible:=true;
+      SetForegroundWindow(Application.Handle);
+      
+      DialogBoxAutoClose('Alert','Mail Sending Completed.'+#13#10+'The Application will be closed in 10 seconds',10,True);
     end;
   end;
   btnMEdit.Enabled:=False;
@@ -832,6 +903,18 @@ begin
 
   // Free up the dialog
   openDialog.Free;
+end;
+
+procedure TfrmScrappingTestApp.FormActivate(Sender: TObject);
+begin
+   {can't do this at create time because task button hasn't been created yet}
+   if i<>0 then
+  begin
+    Shell_NotifyIcon(NIM_ADD, @TrayIcon);
+     {hide the taskbar button}
+     if IsWindowVisible(Application.Handle)
+     then ShowWindow(Application.Handle, SW_HIDE);
+  end;
 end;
 
 end.

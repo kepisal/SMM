@@ -18,7 +18,8 @@ uses
   uTMR in 'uTMR.pas' {frmTMR},
   ufrmInformation in 'ufrmInformation.pas' {frmInformation},
   ufrmSignup in 'ufrmSignup.pas' {frmsignup},
-  uTaskSchedule in 'uTaskSchedule.pas' {frmTaskSchedule1};
+  uTaskSchedule in 'uTaskSchedule.pas' {frmTaskSchedule1},
+  U_CloseDlg in '..\..\..\..\..\..\..\Downloads\Movies\SystrayDemoSource\U_CloseDlg.pas' {CloseUDlg};
 
 var
   vlu1,vlu2:Integer;
@@ -40,6 +41,7 @@ begin
   Application.CreateForm(TfrmInformation, frmInformation);
   Application.CreateForm(Tfrmsignup, frmsignup);
   Application.CreateForm(TfrmTaskSchedule1, frmTaskSchedule1);
+  Application.CreateForm(TCloseUDlg, CloseUDlg);
   Application.Minimize;
   Sleep(10000);
   end else if(vlu1=0) and (vlu2=1) then begin

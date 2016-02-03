@@ -200,7 +200,6 @@ begin
   1 : begin AutoR:=createTasks(1);end; // Task On Logon
   2 : begin AutoR:=createTasks(2);end; // Task On Start up
   end;
-  ShowMessage(AutoR);
   if Trim(AutoR)<>'' then
     AutoR:='autorun=[1]_0_{'+AutoR+'}"'+edtMailTo.Text+'"';
     FileEncryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini',AutoR);
