@@ -775,6 +775,7 @@ begin
     begin
       Tmer:=TTimer.Create(nil);
       Tmer.Interval:=5000;
+      ShowMessage('Completed...');
       Tmer.OnTimer:=onTime;
       Tmer.Enabled:=True;
     end;
