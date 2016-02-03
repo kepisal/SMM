@@ -1,6 +1,6 @@
 object frmScrappingTestApp: TfrmScrappingTestApp
-  Left = 264
-  Top = 65
+  Left = 189
+  Top = 89
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Scrape Module Application Management'

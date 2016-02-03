@@ -1,6 +1,6 @@
 object frmTaskSchedule1: TfrmTaskSchedule1
-  Left = 637
-  Top = 269
+  Left = 356
+  Top = 96
   BorderStyle = bsDialog
   Caption = 'Task Schedule'
   ClientHeight = 271

@@ -154,7 +154,6 @@ function TfrmTaskSchedule1.createTasks(index:Byte):String;
 var
   temp,sdate,stime,zone,fln,daychecked,Query:String;
   i,j,buttonSelected :Integer;
-  test:Cardinal;
   key: string;
   Reg: TRegIniFile;
 begin
@@ -162,34 +161,33 @@ begin
   fln:=Application.ExeName;
   stime:=ConvertTime12To24(TimeToStr(dtpTime.time));
   sdate:=DateToStr(dtpDateTime.Date);
-if getOption(index)<>'' then
-begin
+
 case index of
-  0: begin // one time
-      Query:='/Create /SC '+getOption(index)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f';
-      end;
-  1: begin // DAILY time
-      Query:='/Create /SC '+getOption(index)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f';
+0 : begin if getOption(index)<>'' then
+      begin
+        case rgOption.ItemIndex of
+        0: begin // one time
+            Query:='/Create /SC '+getOption(index)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f'; end;
+        1: begin // DAILY time
+            Query:='/Create /SC '+getOption(index)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f'; end;
+        2: begin // WEEKLY time
+            Query:='/Create /SC '+getOption(index)+' /D '+GetSelectedCheckboxValue(CheckListBox1)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f'; end;
+        end;
+    end else ShowMessage('Please Check Task before apply...');
     end;
-  2: begin // WEEKLY time
-      Query:='/Create /SC '+getOption(index)+' /D '+GetSelectedCheckboxValue(CheckListBox1)+' /TN "'+TN+'" /TR "'+fln+'" /ST '+stime+' /f';
-    end;
-  3: begin // ON LOGON
+1 : begin // ON LOGON
       Query:='/Create /SC '+getValueComboBox(cbbBeginTask.ItemIndex)+' /TN "'+TN+'" /TR "'+fln+'" /f';
     end;
-  4: begin // ONSTART
+2 : begin // ONSTART
      SetAutoStart_REG(fln,'MTester',true);
     end;
-  end;
-  buttonSelected := messagedlg('Task Updated : '+getValueComboBox(cbbBeginTask.ItemIndex),mtWarning, mbOKCancel, 0);
-      if buttonSelected = mrOK then
-        begin
-         ShellExecute(0,'runas','SchTasks',pansichar(Query),nil,SW_HIDE);
-         Result:='Success';
-        end;
-end else ShowMessage('Please Check Task before apply...');
-
-//end;
+end;
+   buttonSelected := messagedlg('Task Updated : '+getValueComboBox(cbbBeginTask.ItemIndex),mtWarning, mbOKCancel, 0);
+    if buttonSelected = mrOK then
+    begin
+      ShellExecute(0,'runas','SchTasks',pansichar(Query),nil,SW_HIDE);
+      Result:=getOption(index)+'-'+cbbBeginTask.Text;
+    end;
 end;
 procedure TfrmTaskSchedule1.btnOkClick(Sender: TObject);
 var
@@ -197,15 +195,15 @@ var
 begin
   case cbbBeginTask.ItemIndex of
   0 : begin
-      AutoR:= createTasks(rgOption.ItemIndex);
+      AutoR:= createTasks(0);// Task On Schedules Once, Daily, Weekly
   end;
-  1 : begin AutoR:=createTasks(3);end;
-  2 : begin AutoR:=createTasks(4);end;
+  1 : begin AutoR:=createTasks(1);end; // Task On Logon
+  2 : begin AutoR:=createTasks(2);end; // Task On Start up
   end;
+  ShowMessage(AutoR);
   if Trim(AutoR)<>'' then
-    AutoR:='autorun=[1]_0_"'+edtMailTo.Text+'"';
+    AutoR:='autorun=[1]_0_{'+AutoR+'}"'+edtMailTo.Text+'"';
     FileEncryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini',AutoR);
-
 end;
 
 procedure TfrmTaskSchedule1.btnCancelClick(Sender: TObject);
@@ -247,7 +245,7 @@ var
   buttonSelected :Integer;
 begin
 
-  buttonSelected := messagedlg('Task Updated : '+getValueComboBox(cbbBeginTask.ItemIndex),mtWarning, mbOKCancel, 0);
+  buttonSelected := messagedlg('Task Remove',mtWarning, mbOKCancel, 0);
       if buttonSelected = mrOK then
         begin
         ShellExecute(0,'runas','SchTasks',pansichar(' /Delete /TN "'+TN+'" /f'),nil,SW_HIDE);

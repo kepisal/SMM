@@ -195,6 +195,8 @@ var
   // Path
   path:String;
 
+  // Identify
+  task:String;
 implementation
 
 uses
@@ -316,9 +318,7 @@ begin
                     // A.kha 85569272102 160689
         mExecute := mExecute + ' "' + Trim(Self.Caption) + '"' + ' "' + Trim(aParam) + '"';
         _ExecuteAndWait(mExecute); //Execute one by one
-
-
-
+        Sleep(1000);
       end;
       isCheck := True;
 
@@ -754,22 +754,28 @@ procedure TfrmScrappingTestApp.FormCreate(Sender: TObject);
 var
   vlue:String;
   mail:String;
+  body:String;
   sent:Boolean;
   Tmer:TTimer;
   i:Integer;
 begin
   vlue:=FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini');
   mail:=StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'"','"');
+  task:=StrGrab(vlue,'{','}');
   ATR:=StrToInt(StrGrab(vlue,'[',']'));
   if  ATR= 1 then
   begin
     SendMessage(self.Handle, wm_search, 0, 0);
     SendMessage(self.Handle, wm_start, 0, 0);
-    sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),'Information in File','scrape3rd@yahoo.com','G_3rdscrape',tfilename);
+    body:='Semi-Module Monitoring System '+#13#10
+    +'Task : ['+task+']'+#13#10
+    +'Modules are completed.'+#13#10+'for Modules information are store in File ['+tfilename+']';
+    sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),body,'scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
       Tmer:=TTimer.Create(nil);
       Tmer.Interval:=5000;
+      ShowMessage('Completed...');
       Tmer.OnTimer:=onTime;
       Tmer.Enabled:=True;
     end;
