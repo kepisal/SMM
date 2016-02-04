@@ -814,7 +814,7 @@ begin
     uFlags              := NIF_MESSAGE or NIF_ICON or NIF_TIP;
     uCallbackMessage    := WM_NOTIFYICON;
     hIcon               := HMainIcon;
-    szTip               := 'Semi Automatic Module Scraping Monitoring System';
+    szTip               := 'Semi Automatic Module'+#13#10+'Scraping Monitoring System';
   end;
   Application.OnMinimize:= MinimizeClick;
 

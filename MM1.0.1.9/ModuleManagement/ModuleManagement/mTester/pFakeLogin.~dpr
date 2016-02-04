@@ -2,12 +2,13 @@ program pFakeLogin;
 
 uses
   Forms,
-  FakeLogin in 'FakeLogin.pas' {Form1};
+  FakeLogin in 'FakeLogin.pas' {frmlogin};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.Title := 'Welcom SAMM';
+  Application.CreateForm(Tfrmlogin, frmlogin);
   Application.Run;
 end.

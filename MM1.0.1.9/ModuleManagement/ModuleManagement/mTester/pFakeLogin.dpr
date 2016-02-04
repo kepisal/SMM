@@ -8,6 +8,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Welcom SAMM';
   Application.CreateForm(Tfrmlogin, frmlogin);
   Application.Run;
 end.

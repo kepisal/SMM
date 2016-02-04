@@ -4,16 +4,20 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,uMethododl,uMethod,ShellAPI,Seed;
+  Dialogs, StdCtrls,uUtilitise,uMethod,ShellAPI,Seed, Buttons, ExtCtrls;
 
 type
   Tfrmlogin = class(TForm)
-    btnLogin: TButton;
     grpInfo: TGroupBox;
     edtUserName: TEdit;
     edtPassword: TEdit;
     lbl1: TLabel;
     lbl2: TLabel;
+    CheckBox1: TCheckBox;
+    Panel1: TPanel;
+    Button1: TButton;
+    Image1: TImage;
+    btnsignup: TButton;
     procedure btnLoginClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -84,7 +88,7 @@ begin
         Inc(j);
     end;
     CloseFile(myFile);
-    uSaveFile('D_data.txt',str);
+//    uSaveFile('D_data.txt',str);
     //assign the value from the text box to uName and pWord
     uName := edtUsername.Text;
     pWord := edtPassword.Text;
@@ -139,5 +143,7 @@ begin
   Action :=caFree;
   Application.Terminate();
 end;
+
+
 
 end.

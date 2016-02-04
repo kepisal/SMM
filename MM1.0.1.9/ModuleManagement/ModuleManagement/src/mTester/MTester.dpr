@@ -18,7 +18,8 @@ uses
   uTMR in 'uTMR.pas' {frmTMR},
   ufrmInformation in 'ufrmInformation.pas' {frmInformation},
   ufrmSignup in 'ufrmSignup.pas' {frmsignup},
-  uTaskSchedule in 'uTaskSchedule.pas' {frmTaskSchedule1};
+  uTaskSchedule in 'uTaskSchedule.pas' {frmTaskSchedule1},
+  ufrmsplashscreen in 'ufrmsplashscreen.pas' {frmsplashscreen};
 
 var
   vlu1,vlu2:Integer;
@@ -30,7 +31,7 @@ begin
 //  if ((vlu1=0) And (vlu2=0)) or ((vlu1=1) And (vlu2=1)) then
   if (vlu1=1) and (vlu2=0) then
   begin
-//    Application.CreateForm(Tfrmlogin, frmlogin);
+//  Application.CreateForm(Tfrmsplashscreen, frmsplashscreen);
   Application.CreateForm(TfrmScrappingTestApp, frmScrappingTestApp);
   Application.CreateForm(TResult, Result);
   Application.CreateForm(TParam, Param);
@@ -43,6 +44,7 @@ begin
   Application.Minimize;
   Sleep(10000);
   end else if(vlu1=0) and (vlu2=1) then begin
+  Application.CreateForm(Tfrmsplashscreen, frmsplashscreen);
   Application.CreateForm(TfrmScrappingTestApp, frmScrappingTestApp);
   Application.CreateForm(TResult, Result);
   Application.CreateForm(TParam, Param);

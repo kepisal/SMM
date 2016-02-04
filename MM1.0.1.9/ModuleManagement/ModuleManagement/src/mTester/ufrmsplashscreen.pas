@@ -1,0 +1,60 @@
+unit ufrmsplashscreen;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, ComCtrls, StdCtrls, jpeg,uTester;
+
+type
+  Tfrmsplashscreen = class(TForm)
+    ProgressBar1: TProgressBar;
+    Timer1: TTimer;
+    Panel1: TPanel;
+    Image1: TImage;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmsplashscreen: Tfrmsplashscreen;
+  spfin:Integer;
+implementation
+
+uses Math;
+
+{$R *.dfm}
+var mseconds, starttime: integer;
+procedure Tfrmsplashscreen.Timer1Timer(Sender: TObject);
+var
+  dv:Integer;
+begin
+  dv:=35;
+ mseconds := GetTickCount() - starttime;
+  if mseconds < 5000 then
+    ProgressBar1.Position := Trunc(mseconds / dv)
+  else begin
+    ProgressBar1.Position := 100;
+    Panel1.Caption := 'Done!';
+    Timer1.Enabled := false;
+    frmsplashscreen.Hide;
+    frmScrappingTestApp.Show;
+  end;
+end;
+
+procedure Tfrmsplashscreen.FormCreate(Sender: TObject);
+begin
+ starttime := GetTickCount();
+  mseconds := 0;
+  ProgressBar1.Min := 0;
+  ProgressBar1.Max := 100;
+  ProgressBar1.Position := 0;
+  timer1.Enabled := True;
+  Panel1.Caption := 'Loading data...';
+end;
+
+end.

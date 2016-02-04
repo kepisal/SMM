@@ -12,6 +12,7 @@ uses
   function FileVersion(const FileName:TFileName):String;
   function FileDecryption(const filename:String;key:String):String;
   function FileEncryption(const filename:String;key:String;source:String):String;
+  procedure CreateFile(const filename:String;source:String);
   procedure SetAutoStart_REG(AppName, AppTitle: string; bRegister: Boolean);
   procedure RemoveEntryFromRegistry(AppName:String);
   procedure DialogBoxAutoClose(const ACaption, APrompt: string; DuracaoEmSegundos: Integer;AppClose:Boolean);
@@ -119,6 +120,17 @@ begin
     Registry.Free;
   end;
 end;
+procedure CreateFile(const filename:String;source:String);
+var
+  F: TextFile;
+begin
+ AssignFile(F, filename);
+  ReWrite(F);
+  Write(F, source);
+  //Write(F, source);
+  CloseFile(F)
+end;
+
 function FileDecryption(const filename:String;key:String):String;
 var
   text, temp,fullFileName,fileini: string;
