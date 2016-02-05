@@ -57,7 +57,6 @@ var
 begin
   fullFileName:=Application.ExeName;
   fullFileName:=ExtractFilePath(fullFileName)+FileName;
-  //ShowMessage(fullFileName);
   AssignFile(F, fullFileName);
   // Reopen the file for reading
   Reset(F);

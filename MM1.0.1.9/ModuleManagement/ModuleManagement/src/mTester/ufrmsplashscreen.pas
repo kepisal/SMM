@@ -33,9 +33,9 @@ procedure Tfrmsplashscreen.Timer1Timer(Sender: TObject);
 var
   dv:Integer;
 begin
-  dv:=35;
+  dv:=18;
  mseconds := GetTickCount() - starttime;
-  if mseconds < 5000 then
+  if mseconds < 3000 then
     ProgressBar1.Position := Trunc(mseconds / dv)
   else begin
     ProgressBar1.Position := 100;

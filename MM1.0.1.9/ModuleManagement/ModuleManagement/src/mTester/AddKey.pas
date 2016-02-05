@@ -36,7 +36,7 @@ var
   F: TextFile;
 begin
   fullFileName:=Application.ExeName;
-  fullFileName:=ExtractFilePath  (fullFileName)+'key.bin';
+  fullFileName:=ExtractFilePath(fullFileName)+'bin\key.bin';
   AssignFile(F, fullFileName);
   ReWrite(F);
   textString := SeedEncToBase64(fullFileName, source);

@@ -57,7 +57,6 @@ var
 begin
   fullFileName:=Application.ExeName;
   fullFileName:=ExtractFilePath(fullFileName)+FileName;
-  //ShowMessage(fullFileName);
   AssignFile(F, fullFileName);
   // Reopen the file for reading
   Reset(F);
@@ -97,11 +96,9 @@ end;
 procedure Tfrmkey.FormCreate(Sender: TObject);
 var
 
-  text,text1, temp, code, defi: string;
+  text,text1, code, defi: string;
   i: Integer;
   j: Integer;
-  NewColumn: TListColumn;
-  ListItem: TListItem;
 begin
   i := 1;
   j:=1;

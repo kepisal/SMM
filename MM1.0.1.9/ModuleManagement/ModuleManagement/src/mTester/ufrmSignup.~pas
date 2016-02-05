@@ -64,9 +64,9 @@ begin
       else
         begin
           //assign from the file name to myFile
-          AssignFile(myFile, 'data.txt');
+          AssignFile(myFile, fullFileName);
           // If there is the exist file
-          if FileExists('data.txt') then
+          if FileExists(fullFileName) then
             begin
               //Open file to read only
               Reset(myFile);

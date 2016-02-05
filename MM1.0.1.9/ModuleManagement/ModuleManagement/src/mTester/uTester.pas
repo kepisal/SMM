@@ -326,11 +326,10 @@ var
   mExecute, aParam: string;
   isCheck: Boolean;
 begin
-  //ShowMessage(ExtractFileDir(Application.ExeName));
   DTable:=TDrawTable.create;
   DTable.initTbl();
-  DTable.setFilePath(ExtractFileDir(Application.ExeName)+'\ModuleLogs_'+formatdatetime('dd-mm-yy[hh_nn_ss]', Now)+'.log');
-  
+  DTable.setFilePath(ExtractFileDir(Application.ExeName)+'ModuleLogs_'+formatdatetime('dd-mm-yy[hh_nn_ss]', Now)+'.log');
+
   mResult.Lines.Clear;
   mStatus.Lines.Clear;
   isCheck := False;
@@ -348,6 +347,7 @@ begin
       //path:=ExtractFileDir(Application.ExeName);
       //ShowMessage(uf_StringCrop(path,'','\'));
       mExecute :=ExtractFilePath(ExcludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)))+'module\' + lvModuleList.Items.Item[dclI].SubItems[3] + '.kha';
+
         //if the module is not exist then
       lvModuleList.Items.Item[dclI].SubItems[6] :=_GetFileVersion(mExecute);
       if not FileExists(mExecute) then
@@ -397,8 +397,7 @@ var
   dclFilePart: string;
 begin
   dclList := TListItem.Create(nil);
-  dclFilePart := ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg';
-
+  dclFilePart := ExtractFilePath(Application.ExeName) + 'Logs\ModuleInfo.reg';
   //Check File Exist
   if not FileExists(dclFilePart) then
   begin
@@ -494,8 +493,8 @@ var
   dclBInfo: String;
   dclLastSection: String;
 begin
-  if not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Logs\') then
-    if not CreateDir(ExtractFilePath(ParamStr(0)) + 'Logs\') then;
+  if not DirectoryExists(ExtractFilePath(Application.ExeName) + 'bin\Logs\') then
+    if not CreateDir(ExtractFilePath(Application.ExeName) + 'bin\Logs\') then;
 
     dclBInfo := schar + edtCatName.Text
             + schar + edtBankName.Text
@@ -507,9 +506,9 @@ begin
   //Update Module Info
   if(M_Edit=False) then
   begin
-  if FileExists(ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg') then
+  if FileExists(ExtractFilePath(Application.ExeName)+ 'bin\Logs\ModuleInfo.reg') then
   begin
-    dclIniFile := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg');
+    dclIniFile := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'bin\Logs\ModuleInfo.reg');
     dclSection := TStringList.Create;
     dclIniFile.ReadSections(dclSection);
     dclLastSection := IntToStr(dclI);
@@ -522,9 +521,9 @@ begin
   else
     begin // Add New Module
   //Save Encrypted Account Info
-  if FileExists(ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg') then
+  if FileExists(ExtractFilePath(Application.ExeName) + 'bin\Logs\ModuleInfo.reg') then
   begin
-    dclIniFile := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg');
+    dclIniFile := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'bin\Logs\ModuleInfo.reg');
     dclSection := TStringList.Create;
     dclIniFile.ReadSections(dclSection);
     dclLastSection := IntToStr(dclSection.Count);
@@ -533,7 +532,7 @@ begin
     dclIniFile.UpdateFile;
     ShowMessage('Insert Completed');
   end else begin
-    dclIniFile := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg');
+    dclIniFile := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'bin\Logs\ModuleInfo.reg');
     dclIniFile.WriteString('Modul0', 'Modul_Name', Trim(edtModulName.Text));
     dclIniFile.WriteString('Modul0', 'ModuleInfo', dclParam);
 
@@ -620,7 +619,7 @@ begin
 procedure TfrmScrappingTestApp.FormClose(Sender: TObject; var Action: TCloseAction);
 var buttonSelected:Integer;
 begin
-  FileEncryption('auto.ini','auto.ini','autorun=[0]_0_');
+  FileEncryption(ExtractFilePath(Application.ExeName) +'bin\auto.ini','auto.ini','autorun=[0]_0_');
   Action:=caFree;
   Application.Terminate();
   action:=CAnone;
@@ -748,7 +747,7 @@ var
 begin
       _ClearTextBox();
   mExist := False;
-  dclFilePart := ExtractFilePath(ParamStr(0)) + 'Logs\ModuleInfo.reg';
+  dclFilePart := ExtractFilePath(Application.ExeName) + 'bin\Logs\ModuleInfo.reg';
   //Check File Exist
   if not FileExists(dclFilePart) then
   begin
@@ -804,7 +803,7 @@ var
   sent:Boolean;
   i:Integer;
 begin
-  HMainIcon:=LoadIcon(MainInstance, 'MAINICON');
+ HMainIcon:=LoadIcon(MainInstance, 'MAINICON');
   Shell_NotifyIcon(NIM_DELETE, @TrayIcon);
   with trayIcon do
   begin
@@ -819,6 +818,7 @@ begin
   Application.OnMinimize:= MinimizeClick;
 
   vlue:=FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini');
+  //vlue:=FileDecryption(ExtractFilePath(Application.ExeName)+'bin\auto.ini','auto.ini');
   mail:=StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'"','"');
   task:=StrGrab(vlue,'{','}');
   ATR:=StrToInt(StrGrab(vlue,'[',']'));

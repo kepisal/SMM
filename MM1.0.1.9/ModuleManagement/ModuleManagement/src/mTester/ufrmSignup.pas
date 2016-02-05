@@ -42,7 +42,7 @@ begin
   strErr:='';
    result:='';
    fullFileName:=Application.ExeName;
-  fullFileName:=ExtractFilePath  (fullFileName)+'data.txt';
+  fullFileName:=ExtractFilePath  (fullFileName)+'bin\data.txt';
    // If the Text Boxes are empty then show message
    if (edtUserName.Text='') or (edtCnPssword.Text='') or (edtPassword.Text='') then
     begin

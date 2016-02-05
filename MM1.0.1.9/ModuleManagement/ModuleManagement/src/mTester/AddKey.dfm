@@ -52,7 +52,7 @@ object frmAddkey: TfrmAddkey
       Left = 97
       Top = 22
       Width = 209
-      Height = 24
+      Height = 21
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12

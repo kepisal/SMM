@@ -202,7 +202,7 @@ begin
   end;
   if Trim(AutoR)<>'' then
     AutoR:='autorun=[1]_0_{'+AutoR+'}"'+edtMailTo.Text+'"';
-    FileEncryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini',AutoR);
+    FileEncryption(ExtractFilePath(Application.ExeName)+'bin\auto.ini','auto.ini',AutoR);
 end;
 
 procedure TfrmTaskSchedule1.btnCancelClick(Sender: TObject);
@@ -250,7 +250,7 @@ begin
         ShellExecute(0,'runas','SchTasks',pansichar(' /Delete /TN "'+TN+'" /f'),nil,SW_HIDE);
         RemoveEntryFromRegistry('MTester');
         AutoR:='autorun=[0]_1_';
-        FileEncryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini',AutoR);
+        FileEncryption(ExtractFilePath(Application.ExeName)+'bin\auto.ini','auto.ini',AutoR);
         end;
 end;
 

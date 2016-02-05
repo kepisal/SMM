@@ -3,7 +3,7 @@ unit UTblCreate;
 interface
 
  // Create class with key Type
-uses SysUtils,uTester;
+uses SysUtils;
 type
   TStringArray= array of String;
   TDrawTable = class

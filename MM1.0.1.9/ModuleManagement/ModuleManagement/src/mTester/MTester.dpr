@@ -26,7 +26,10 @@ var
 begin
   Application.Initialize;
   Application.Title := 'Semi Automatic Module Scraping Monitoring System';
-  vlu1:=StrToInt(StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'[',']'));
+  //vlu1:=0;
+  //vlu2:=1;
+  //ExtractFilePath(Application.ExeName)+
+    vlu1:=StrToInt(StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'[',']'));
   vlu2:=StrToInt(StrGrab(FileDecryption(ExtractFilePath(Application.ExeName)+'auto.ini','auto.ini'),'_','_'));
 //  if ((vlu1=0) And (vlu2=0)) or ((vlu1=1) And (vlu2=1)) then
   if (vlu1=1) and (vlu2=0) then
