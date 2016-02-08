@@ -24350,3 +24350,106 @@
 <script type="text/javascript">$(document).ready(function () { $('body').show(); });</script>
 </html>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:og = "http://ogp.me/ns#"
+	  xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    
+    <title>Log-in</title>
+    <meta name="Description" content="" />
+    <meta name="Keywords" content="" /> 
+    <meta name="msvalidate.01" content="62BD51F0213D4D7A81D09D7E79E85197" />
+       
+        <meta property="fb:app_id"             content="260491894034757" />
+        <meta property="og:site_name"          content="ICEPAY" />
+        <meta property="og:type"               content="website" /> 
+        <meta property="og:url"                content="https://portal.icepay.com/EN/Login" /> 
+        <meta property="og:image"              content="http://www.icepay.com/images/logo-icepay-fb.png" />
+        <meta property="og:title"              content="Log-in" />
+        <meta property="og:description"        content="" /> 
+    
+    <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon" />
+    <link href="/css/fonts.css?20150819" media="all" rel="Stylesheet" type="text/css" id="fonts"/>
+    <link href="/css/master.css?20150819" media="all" rel="Stylesheet" type="text/css" id="mastercss"/>
+    <!-- L:EN -->
+    
+    
+    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jTranslations.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.cookiecuttr.js"></script>
+    <script type="text/javascript" src="/scripts/plusone.js"></script>
+    <script type="text/javascript" src="/scripts/directpay.js"></script>
+    <script type="text/javascript" src="/scripts/dpg.js"></script>
+    <script src="/scripts/jquery.zrssfeed.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/scripts/jquery.vticker.js"></script>
+    
+     
+    <script type="text/javascript">     
+        //if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-5423567-10']);
+            _gaq.push(['_setDomainName', '']);
+            _gaq.push(['_setAllowLinker', true]);
+            _gaq.push(['_trackPageview']);
+        //}
+
+        (function () {
+            
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            
+        })();
+
+    function recordOutboundLink(link, category, action) {
+        try {
+                _gat._getTrackerByName()._trackEvent(category, action);
+            }   
+        catch (err) { }
+    }
+
+    //Retrieving some web.config file variables to be used in the DPG and Directpay projects
+    var dpgUrl = "portal2";
+    var directpayUrl = "directpay";
+    var faviconPath = "https://directpay.icepay.nl/images/favicon.ico?v=2";
+    var loginDirectpayUrl = "https://directpay.icepay.nl/NL/Login?origin=directpay.icepay.nl";
+    $(document).ready(function () {
+        //Apply DPG changes if url is the DPG one
+        if (window.location.href.indexOf(dpgUrl) > -1) {
+            ApplyDPGChanges();
+            $('body').show();
+        }
+        //Apply DirectPay changes if url is the directpay one
+        if (window.location.href.indexOf(directpayUrl) > -1) {
+            ApplyDirectPayChanges();
+            $('body').show();
+        }
+        $('body').show();//Force show the body
+    });   
+    </script>
+
+   
+    
+
+
+    
+
+
+</head>
+
+
+    
+
+<body id="global"  {
+     class="icepayloginplatform"
+    }
+   >
+
+        <!-- cookiediv!-->
+    <script>
+      
