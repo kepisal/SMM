@@ -844,11 +844,10 @@ begin
     if sent=True then
     begin
       Application.Restore;
-      WindowState := wsNormal; 
+      WindowState := wsNormal;
       visible:=true;
       SetForegroundWindow(Application.Handle);
-
-      DialogBoxAutoClose('Alert','Mail Sending Completed.'+#13#10+'The Application will be closed in 10 seconds',10,True);
+      DialogBoxAutoClose('Alert','Mail Sending Completed.'+#13#10+'The Application will be closed in 5 seconds',5,True);
     end;
   end;
   btnMEdit.Enabled:=False;

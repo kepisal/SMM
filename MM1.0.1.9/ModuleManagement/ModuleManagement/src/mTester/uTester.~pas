@@ -843,11 +843,10 @@ begin
     sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),body,'scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
-      Application.Restore;
-      WindowState := wsNormal; 
+      {Application.Restore;
+      WindowState := wsNormal;
       visible:=true;
-      SetForegroundWindow(Application.Handle);
-
+      SetForegroundWindow(Application.Handle);}
       DialogBoxAutoClose('Alert','Mail Sending Completed.'+#13#10+'The Application will be closed in 10 seconds',10,True);
     end;
   end;
