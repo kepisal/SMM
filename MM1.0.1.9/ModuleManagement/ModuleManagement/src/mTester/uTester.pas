@@ -328,7 +328,7 @@ var
 begin
   DTable:=TDrawTable.create;
   DTable.initTbl();
-  DTable.setFilePath(ExtractFileDir(Application.ExeName)+'ModuleLogs_'+formatdatetime('dd-mm-yy[hh_nn_ss]', Now)+'.log');
+  DTable.setFilePath(ExtractFileDir(Application.ExeName)+'\ModuleLogs_'+formatdatetime('dd-mm-yy[hh_nn_ss]', Now)+'.log');
 
   mResult.Lines.Clear;
   mStatus.Lines.Clear;
@@ -843,11 +843,11 @@ begin
     sent:=sendMail('scrape3rd@yahoo.com',mail,'Module Process on '+DateTimeToStr(now),body,'scrape3rd@yahoo.com','G_3rdscrape',tfilename);
     if sent=True then
     begin
-      Application.Restore;  {restore the application}
-      WindowState := wsNormal; {reset form to normal}
+      Application.Restore;
+      WindowState := wsNormal; 
       visible:=true;
       SetForegroundWindow(Application.Handle);
-      
+
       DialogBoxAutoClose('Alert','Mail Sending Completed.'+#13#10+'The Application will be closed in 10 seconds',10,True);
     end;
   end;
